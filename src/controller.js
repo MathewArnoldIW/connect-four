@@ -1,0 +1,4 @@
+function initializeGame() {
+    initializeGrid()
+    bindClickEvents()
+}

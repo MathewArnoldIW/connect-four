@@ -7,7 +7,9 @@ function initializeGrid() {
         for (let j = 0; j < gridSize; j++) {
             let cell = row.insertCell(-1)
             cell.innerHTML = "TEST!"
-            //cell.id???
+            cellName = "cell-" + i + "-" + j
+            cell.id = cellName
+            cellNames.push(cellName)
         }
     }
 
