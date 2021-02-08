@@ -78,16 +78,16 @@ class LocalGameData {
 
 function updateStorageObject(localGameData) {
     console.log(`Called updateStorageObject()`)
-    
+
     const stringifiedData = JSON.stringify(localGameData)
-    sessionStorage.setItem("gamedata", stringifiedData)
+    sessionStorage.setItem("gamedata", stringifiedData) //deal with this magic string?
 }
 
 
 function getGameData() {
     console.log(`Called getGameData()`)
 
-    const stringifiedData = sessionStorage.getItem("gamedata")
+    const stringifiedData = sessionStorage.getItem("gamedata") //deal with this magic string?
     const parsedData = JSON.parse(stringifiedData)
     const gameDataObject = Object.assign(new LocalGameData(), parsedData)
 
@@ -95,7 +95,6 @@ function getGameData() {
 }
 
 
-function parseListFromStorage(listString) {
-    console.log(`Called parseListFromStorage()`)
-    return listString.split(",")
+module.exports = {
+    LocalGameData
 }
