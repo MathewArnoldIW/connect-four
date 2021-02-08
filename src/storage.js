@@ -77,7 +77,7 @@ class LocalGameData {
 
 
 function updateStorageObject(localGameData) {
-    console.log(`Called localGameData()`)
+    console.log(`Called updateStorageObject()`)
     
     for (let member in localGameData) {
         //definitely needs testing, probably won't work
@@ -89,6 +89,9 @@ function updateStorageObject(localGameData) {
 
 
 function getGameData() {
+    //TODO: boardstate
+    //TODO: JSON stringify? nulls in arrays seems to give me trouble with this
+    
     console.log(`Called getGameData()`)
     let localGameData = new LocalGameData()
 
