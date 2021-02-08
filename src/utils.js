@@ -5,3 +5,7 @@ function getCellNameFromCoords(x, y, isImageName) {
     const elementName = isImageName ? `${cellName}-img` : cellName
     return elementName
 }
+
+module.exports = {
+    getCellNameFromCoords
+};
