@@ -1,3 +1,9 @@
+.cell-image {
+    width: 8%;
+    margin: 0px;
+}
+
+
 #connect-four-grid {
-    width: 100%
+    width: 100%;
 }

@@ -1,34 +1,50 @@
-function initializeGrid() {
-    let grid = document.createElement("TABLE")
+function initializeGrid(gameData) {
+    console.log(`Called initializeGrid()`)
+    let grid = document.createElement(`TABLE`)
 
-    for (let i = gridSize - 1; i >= 0; i--) {
+    for (let i = gameData._gridHeight - 1; i >= 0; i--) {
         let row = grid.insertRow(-1)
-        console.log(i)
 
-        for (let j = 0; j < gridSize; j++) {
+        for (let j = 0; j < gameData._gridWidth; j++) {
+            cellName = `cell-${j}-${i}`
+            cellImageName = `${cellName}-img`
+            
             let cell = row.insertCell(-1)
-            cell.innerHTML = "TEST!"
-            cellName = "cell-" + j + "-" + i
+            let image = document.createElement(`img`)
+
             cell.id = cellName
-            cellNames.push(cellName)
+            image.id = cellImageName
+            image.class = `cell-image`
+            image.src = `../img/tokens/cell_null.png`
+
+            cell.appendChild(image)
+            gameData.pushNewCellElement(cellName, cellImageName)
+        
+            console.log(`Appended the cell "${cellName}" to cellNames`)
+            console.log(`Appended the image "${cellImageName}" to cellImageNames`)
         }
     }
 
-    let gridParent = document.getElementById("connect-four-grid");
-    gridParent.innerHTML = ""
+    let gridParent = document.getElementById(`connect-four-grid`);
+    gridParent.innerHTML = ``
     gridParent.appendChild(grid)
+    console.log(`Generated grid added as child to the 'connect-four-grid' element`)
+
+    return gameData
 }
 
 
-function bindClickEvents() {
-    for (cellName of cellNames) {
-        cellNameSegments = cellName.split("-")
+function bindClickEvents(gameData) {
+    console.log(`Called bindClickEvents()`)
+
+    for (cellName of gameData.cellNames) {
+        cellNameSegments = cellName.split(`-`)
         x = parseInt(cellNameSegments[1])
         y = parseInt(cellNameSegments[2])
 
         const gridPosition = document.getElementById(cellName);
-        gridPosition.addEventListener("click", clickGridCell.bind(null, x, y));
+        gridPosition.addEventListener(`click`, clickGridCell.bind(null, x, y));
     
-        console.log("current bind loop: " + (x + y))
+        console.log(`Added event listener to the cell at (${x}, ${y})`)
     }
 }
