@@ -93,6 +93,8 @@ function getGameData() {
     let localGameData = new LocalGameData()
 
     localGameData.gridSize = parseInt(sessionStorage.gridSize)
+    localGameData.playerOneScore = parseInt(sessionStorage.playerOneScore)
+    localGameData.playerTwoScore = parseInt(sessionStorage.playerTwoScore)
     localGameData.currentTurn = parseInt(sessionStorage.currentTurn)
 
     localGameData.cellNames = parseListFromStorage(sessionStorage.cellNames)

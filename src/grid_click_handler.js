@@ -1,6 +1,7 @@
-function clickGridCell(x, y, gameData, event) {
+function clickGridCell(x, y, event) {
     console.log(`Called clickGridCell() - Clicked (${x}, ${y})`)
 
+    const gameData = getGameData()
     currentTeam = gameData.getCurrentTeam()
 
     // let board = dropPieceIntoColumn(currentTeam, y)
