@@ -6,8 +6,8 @@ function initializeGrid(gameData) {
         let row = grid.insertRow(-1)
 
         for (let j = 0; j < gameData._gridWidth; j++) {
-            cellName = `cell-${j}-${i}`
-            cellImageName = `${cellName}-img`
+            let cellName = getCellNameFromCoords(j, i, false)
+            let cellImageName = getCellNameFromCoords(j, i, true)
             
             let cell = row.insertCell(-1)
             let image = document.createElement(`img`)
@@ -38,12 +38,12 @@ function bindClickEvents(gameData) {
     console.log(`Called bindClickEvents()`)
 
     for (cellName of gameData.cellNames) {
-        cellNameSegments = cellName.split(`-`)
-        x = parseInt(cellNameSegments[1])
-        y = parseInt(cellNameSegments[2])
+        const cellNameSegments = cellName.split(`-`)
+        const x = parseInt(cellNameSegments[1])
+        const y = parseInt(cellNameSegments[2])
 
         const gridPosition = document.getElementById(cellName);
-        gridPosition.addEventListener(`click`, clickGridCell.bind(null, x, y));
+        gridPosition.addEventListener(`click`, clickGridCell.bind(null, x, y, gameData));
     
         console.log(`Added event listener to the cell at (${x}, ${y})`)
     }

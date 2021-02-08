@@ -68,6 +68,11 @@ class LocalGameData {
 
         return this.boardState[horizontalCoordinate]
     }
+
+    getCurrentTeam() {
+        const teamIndex = this.currentTurn % this.teams.length
+        return this.teams[teamIndex]
+    }
 }
 
 
