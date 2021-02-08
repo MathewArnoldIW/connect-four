@@ -6,8 +6,12 @@
   "directories": {
     "test": "test"
   },
+  "dependencies": {},
+  "devDependencies": {
+    "jest": "^26.2.3"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -18,8 +22,5 @@
   "bugs": {
     "url": "https://github.com/MathewArnoldIW/connect-four/issues"
   },
-  "homepage": "https://github.com/MathewArnoldIW/connect-four#readme",
-  "dependencies": {
-    "jest": "^26.6.3"
-  }
+  "homepage": "https://github.com/MathewArnoldIW/connect-four#readme"
 }
