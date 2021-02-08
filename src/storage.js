@@ -79,36 +79,19 @@ class LocalGameData {
 function updateStorageObject(localGameData) {
     console.log(`Called updateStorageObject()`)
     
-    for (let member in localGameData) {
-        //definitely needs testing, probably won't work
-        //sessionStorage.member = localGameData.member
-        //alternatively:
-        sessionStorage[member] = localGameData[member]
-    }
+    const stringifiedData = JSON.stringify(localGameData)
+    sessionStorage.setItem("gamedata", stringifiedData)
 }
 
 
 function getGameData() {
-    //TODO: boardstate
-    //TODO: JSON stringify? nulls in arrays seems to give me trouble with this
-    
     console.log(`Called getGameData()`)
-    let localGameData = new LocalGameData()
 
-    localGameData.gridSize = parseInt(sessionStorage.gridSize)
-    localGameData.playerOneScore = parseInt(sessionStorage.playerOneScore)
-    localGameData.playerTwoScore = parseInt(sessionStorage.playerTwoScore)
-    localGameData.currentTurn = parseInt(sessionStorage.currentTurn)
+    const stringifiedData = sessionStorage.getItem("gamedata")
+    const parsedData = JSON.parse(stringifiedData)
+    const gameDataObject = Object.assign(new LocalGameData(), parsedData)
 
-    localGameData.cellNames = parseListFromStorage(sessionStorage.cellNames)
-    localGameData.cellImageNames = parseListFromStorage(sessionStorage.cellImageNames)
-    localGameData.teams = parseListFromStorage(sessionStorage.teams)
-
-    localGameData.playerOneName = sessionStorage.playerOneName
-    localGameData.playerTwoName = sessionStorage.playerTwoName
-    localGameData.generateTeamOrderArrays()
-
-    return localGameData
+    return gameDataObject
 }
 
 
