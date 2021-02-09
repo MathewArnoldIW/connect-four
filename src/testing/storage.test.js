@@ -16,9 +16,8 @@ test("generateEmptyBoardArray() creates a 1D array of nulls based on width and h
     ]
     
     for (let i = 0; i < widthHeightExpectedArrangements.length; i++) {
-        const testCase = widthHeightExpectedArrangements[i]
-        
         //ARRANGE
+        const testCase = widthHeightExpectedArrangements[i]
         const exampleGridWidth = testCase[0]
         const exampleGridHeight = testCase[1]
         const expectedArray = testCase[2]
@@ -76,17 +75,17 @@ test("chooseTeamOrder selects losing team first when scores are not equal", () =
 })
 
 
-test("chooseTeamOrder selects both teams evenly when scores are equal, over 1000 iterations within 2% intolerance", () => {
+test("chooseTeamOrder selects both teams evenly when scores are equal, over 10000 iterations within 2% intolerance", () => {
     //ARRANGE
     const exampleData = getExampleLocalGameData()
     exampleData.playerOneScore = 0
     exampleData.playerTwoScore = 0
 
-    const iterations = 1000
+    const iterations = 10000
     const tolerance = 0.02
 
     const expectedTeamCount = iterations * 0.5
-    const boundDifference = expectedTeamCount * tolerance
+    const boundDifference = iterations * tolerance
     const upperBound = expectedTeamCount + boundDifference
     const lowerBound = expectedTeamCount - boundDifference
 
@@ -109,8 +108,33 @@ test("chooseTeamOrder selects both teams evenly when scores are equal, over 1000
     const isTeamOneWithinTolerance = (lowerBound < teamOneCount) && (teamOneCount < upperBound)
     const isTeamTwoWithinTolerance = (lowerBound < teamTwoCount) && (teamTwoCount < upperBound)
 
+    console.log(`lower bound: ${lowerBound}`)
+    console.log(`upper bound: ${upperBound}`)
+    console.log(`team one count: ${teamOneCount}`)
+    console.log(`team two count: ${teamTwoCount}`)
+
     //ASSERT
     expect(iterations).toStrictEqual(teamOneCount + teamTwoCount)
     expect(isTeamOneWithinTolerance).toBeTruthy()
     expect(isTeamTwoWithinTolerance).toBeTruthy()
+})
+
+
+test("pushNewCellElement() should add a cell name and image name to the ends of stored arrays", () => {
+    //ARRANGE
+    const exampleData = getExampleLocalGameData()
+    exampleData.cellNames = ["cell1", "cell2"]
+    exampleData.cellImageNames = ["image1"]
+    
+    const newCell = "newCell"
+    const newImage = "newimage"
+    const expectedCellNames = ["cell1", "cell2", newCell]
+    const expectedImageNames = ["image1", newImage]
+
+    //ACT
+    exampleData.pushNewCellElement(newCell, newImage)
+
+    //ASSERT
+    expect(expectedCellNames.toString()).toStrictEqual(exampleData.cellNames.toString())
+    expect(expectedImageNames.toString()).toStrictEqual(exampleData.cellImageNames.toString())
 })
