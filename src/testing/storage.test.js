@@ -163,3 +163,36 @@ test("getCellValue() can find values in a grid by converting x and y to a 1D arr
         expect(markerToFind).toStrictEqual(actualCellValueFound)
     }
 })
+
+
+test("getCurrentTeam finds correct team based on turn number", () => {
+    const iterations = 10
+    
+    //EVEN NUMBERED TURN TEST
+    for (let i = 0; i < iterations; i++) {
+        //ARRANGE
+        const exampleData = getExampleLocalGameData()
+        exampleData.teams = [true, false]
+        exampleData.currentTurn = Math.floor(Math.random() * 100) * 2
+
+        //ACT
+        const actualCurrentTeam = exampleData.getCurrentTeam()
+
+        //ASSERT
+        expect(actualCurrentTeam).toBeTruthy()
+    }
+
+    //EVEN NUMBERED TURN TEST
+    for (let i = 0; i < iterations; i++) {
+        //ARRANGE
+        const exampleData = getExampleLocalGameData()
+        exampleData.teams = [false, true]
+        exampleData.currentTurn = (Math.floor(Math.random() * 100) * 2) + 1
+
+        //ACT
+        const actualCurrentTeam = exampleData.getCurrentTeam()
+
+        //ASSERT
+        expect(actualCurrentTeam).toBeTruthy()
+    }
+})
