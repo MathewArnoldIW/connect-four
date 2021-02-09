@@ -16,8 +16,9 @@ test("generateEmptyBoardArray() creates a 1D array of nulls based on width and h
     ]
     
     for (let i = 0; i < widthHeightExpectedArrangements.length; i++) {
-        //ARRANGE
         const testCase = widthHeightExpectedArrangements[i]
+        
+        //ARRANGE
         const exampleGridWidth = testCase[0]
         const exampleGridHeight = testCase[1]
         const expectedArray = testCase[2]
@@ -108,11 +109,6 @@ test("chooseTeamOrder selects both teams evenly when scores are equal, over 1000
     const isTeamOneWithinTolerance = (lowerBound < teamOneCount) && (teamOneCount < upperBound)
     const isTeamTwoWithinTolerance = (lowerBound < teamTwoCount) && (teamTwoCount < upperBound)
 
-    console.log(`lower bound: ${lowerBound}`)
-    console.log(`upper bound: ${upperBound}`)
-    console.log(`team one count: ${teamOneCount}`)
-    console.log(`team two count: ${teamTwoCount}`)
-
     //ASSERT
     expect(iterations).toStrictEqual(teamOneCount + teamTwoCount)
     expect(isTeamOneWithinTolerance).toBeTruthy()
@@ -137,4 +133,33 @@ test("pushNewCellElement() should add a cell name and image name to the ends of 
     //ASSERT
     expect(expectedCellNames.toString()).toStrictEqual(exampleData.cellNames.toString())
     expect(expectedImageNames.toString()).toStrictEqual(exampleData.cellImageNames.toString())
+})
+
+
+test("getCellValue() can find values in a grid by converting x and y to a 1D array index", () => {
+    const markerToFind = "marco"
+    const coordinateDimensionBoardArrangements = [
+        [1, 2, 3, 4, [null, null, null, null, null, null, null, markerToFind, null, null, null, null]],
+        [0, 0, 2, 2, [markerToFind, null, null, null]],
+        [3, 0, 4, 2, [null, null, null, markerToFind, null, null, null, null]]
+    ]
+    
+    for (let i = 0; i < coordinateDimensionBoardArrangements.length; i++) {
+        const testParameters = coordinateDimensionBoardArrangements[i]
+
+        //ARRANGE
+        const markerX = testParameters[0]
+        const markerY = testParameters[1]
+
+        const exampleData = getExampleLocalGameData()
+        exampleData._gridWidth = testParameters[2]
+        exampleData._gridHeight = testParameters[3]
+        exampleData.boardState = testParameters[4]
+
+        //ACT
+        const actualCellValueFound = exampleData.getCellValue(markerX, markerY)
+
+        //ASSERT
+        expect(markerToFind).toStrictEqual(actualCellValueFound)
+    }
 })

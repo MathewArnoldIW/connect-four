@@ -61,10 +61,8 @@ class LocalGameData {
 
     getCellValue(x, y) {
         console.log(`Called getCellValue()`)
-        //(x, y) values are counted from lower-left; i values are counted from upper-left, so inversion needed
-        const yInverted = this._gridHeight - y
-        const yHorizontalValue = yInverted * this._gridWidth
-        const horizontalCoordinate = x + yConvertedInverted
+        const yHorizontalValue = y * this._gridWidth
+        const horizontalCoordinate = x + yHorizontalValue
 
         return this.boardState[horizontalCoordinate]
     }
