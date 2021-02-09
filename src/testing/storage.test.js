@@ -6,27 +6,8 @@ function getExampleLocalGameData() {
     return newData
 }
 
+
 //Tests for: LocalGameData class methods
-test("When given new player names, generateTeamOrderArrays() produces two correct arrays", () => {
-    //ARRANGE
-    const exampleData = getExampleLocalGameData()
-
-    exampleData.playerOneName = "Mike"
-    exampleData.playerTwoName = "Ike"
-    const expectedPlayerOneFirst = ["Mike", "Ike"]
-    const expectedPlayerTwoFirst = ["Ike", "Mike"]
-
-    //ACT
-    exampleData.generateTeamOrderArrays()
-    const actualPlayerOneFirst = exampleData.playerOneFirst
-    const actualPlayerTwoFirst = exampleData.playerTwoFirst
-
-    //ASSERT
-    expect(expectedPlayerOneFirst).toStrictEqual(actualPlayerOneFirst)
-    expect(expectedPlayerTwoFirst).toStrictEqual(actualPlayerTwoFirst)
-})
-
-
 test("generateEmptyBoardArray() creates a 1D array of nulls based on width and height", () => {
     const widthHeightExpectedArrangements = [
         [2, 3, [null, null, null, null, null, null]], 
@@ -53,4 +34,83 @@ test("generateEmptyBoardArray() creates a 1D array of nulls based on width and h
         //ASSERT
         expect(expectedArray).toStrictEqual(actualArray)
     }
+})
+
+
+test("When given new player names, generateTeamOrderArrays() produces two correct arrays", () => {
+    //ARRANGE
+    const exampleData = getExampleLocalGameData()
+
+    exampleData.playerOneName = "Mike"
+    exampleData.playerTwoName = "Ike"
+    const expectedPlayerOneFirst = ["Mike", "Ike"]
+    const expectedPlayerTwoFirst = ["Ike", "Mike"]
+
+    //ACT
+    exampleData.generateTeamOrderArrays()
+    const actualPlayerOneFirst = exampleData.playerOneFirst
+    const actualPlayerTwoFirst = exampleData.playerTwoFirst
+
+    //ASSERT
+    expect(expectedPlayerOneFirst).toStrictEqual(actualPlayerOneFirst)
+    expect(expectedPlayerTwoFirst).toStrictEqual(actualPlayerTwoFirst)
+})
+
+
+test("chooseTeamOrder selects losing team first when scores are not equal", () => {
+    //ARRANGE
+    const exampleData = getExampleLocalGameData()
+    const p1Name = exampleData.playerOneName
+    const p2Name = exampleData.playerTwoName
+
+    exampleData.playerOneScore = Math.floor(Math.random() * 100)
+    exampleData.playerTwoScore = exampleData.playerOneScore + 1
+    const expectedTeamOrder = [p1Name, p2Name]
+
+    //ACT
+    exampleData.chooseTeamOrder()
+    const actualTeamOrder = exampleData.teams
+
+    //ASSERT
+    expect(expectedTeamOrder).toStrictEqual(actualTeamOrder)
+})
+
+
+test("chooseTeamOrder selects both teams evenly when scores are equal, over 1000 iterations within 2% intolerance", () => {
+    //ARRANGE
+    const exampleData = getExampleLocalGameData()
+    exampleData.playerOneScore = 0
+    exampleData.playerTwoScore = 0
+
+    const iterations = 1000
+    const tolerance = 0.02
+
+    const expectedTeamCount = iterations * 0.5
+    const boundDifference = expectedTeamCount * tolerance
+    const upperBound = expectedTeamCount + boundDifference
+    const lowerBound = expectedTeamCount - boundDifference
+
+    let teamOneCount = 0
+    let teamTwoCount = 0
+    const teamOneOrder = [exampleData.playerOneName, exampleData.playerTwoName].toString()
+    const teamTwoOrder = [exampleData.playerTwoName, exampleData.playerOneName]
+
+    //ACT
+    for (let i = 0; i < iterations; i++) {
+        exampleData.chooseTeamOrder()
+        
+        if (exampleData.teams.toString() == teamOneOrder.toString()) {
+            teamOneCount++
+        } else if (exampleData.teams.toString() == teamTwoOrder.toString()) {
+            teamTwoCount++
+        }
+    }
+
+    const isTeamOneWithinTolerance = (lowerBound < teamOneCount) && (teamOneCount < upperBound)
+    const isTeamTwoWithinTolerance = (lowerBound < teamTwoCount) && (teamTwoCount < upperBound)
+
+    //ASSERT
+    expect(iterations).toStrictEqual(teamOneCount + teamTwoCount)
+    expect(isTeamOneWithinTolerance).toBeTruthy()
+    expect(isTeamTwoWithinTolerance).toBeTruthy()
 })
