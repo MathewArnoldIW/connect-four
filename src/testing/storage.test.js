@@ -200,22 +200,22 @@ test("getCurrentTeam finds correct team based on turn number", () => {
 
 //TESTS FOR: getting and setting with sessionStorage
 class SessionStorageMock {
-    
+    loadedString
     
     constructor() {
 
     }
 
     getItem(key) {
-        if (key !== "gamedata") {
-            return -1
-        }
-
-
+        
     }
 
     setItem(key, value) {
-        
+        if (key !== "gamedata") {
+            this.loadedString = null
+        } else {
+            this.loadedString = value
+        }
     }
 }
 
@@ -239,7 +239,9 @@ test("updateStorageObject puts stringified game data into sessionStorage", () =>
     //ACT
     console.log("testing the override:")
     storageModule.updateStorageObject(exampleData)
+    const loadedString = sessionStorageMock.loadedString
+    const actualObject = JSON.parse(loadedString)
 
     //ASSERT
-
+    expect(1).toStrictEqual(actualObject._gridHeight)
 })
