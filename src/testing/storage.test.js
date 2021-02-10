@@ -219,12 +219,15 @@ class SessionStorageMock {
     }
 }
 
+
 const sessionStorageMock = new SessionStorageMock()
 Object.defineProperty(window, 'sessionStorage', {value: sessionStorageMock})
 
 
 test("updateStorageObject puts stringified game data into sessionStorage", () => {
     //ARRANGE
+    const exampleData = getExampleLocalGameData()
+    
     const propertiesToTest = {
         "_gridHeight": 1,
         "_gridWidth": 2,
@@ -237,17 +240,6 @@ test("updateStorageObject puts stringified game data into sessionStorage", () =>
         "teams": ["YELLOW", "RED"]
     }
     
-    const exampleData = getExampleLocalGameData()
-    // exampleData._gridHeight = 1
-    // exampleData._gridWidth = 2
-    // exampleData.playerOneScore = 3
-    // exampleData.playerTwoScore = 4
-    // exampleData.currentTurn = 5
-    // exampleData.boardState = ["RED", "YELLOW"]
-    // exampleData.cellNames = ["CELL"]
-    // exampleData.cellImageNames = ["IMAGE"]
-    // exampleData.teams = ["YELLOW", "RED"]
-
     for (const [key, value] of Object.entries(propertiesToTest)) {
         exampleData[key] = value    
     }
@@ -260,7 +252,8 @@ test("updateStorageObject puts stringified game data into sessionStorage", () =>
 
     //ASSERT
     for (const [key, value] of Object.entries(propertiesToTest)) {
-        expect(value).toStrictEqual(propertiesToTest[key])  
+        expect(value).toStrictEqual(actualObject[key])
     }
-    
 })
+
+
