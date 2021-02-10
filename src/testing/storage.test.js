@@ -7,7 +7,7 @@ function getExampleLocalGameData() {
 }
 
 
-//Tests for: LocalGameData class methods
+//TESTS FOR: LocalGameData class methods
 test("generateEmptyBoardArray() creates a 1D array of nulls based on width and height", () => {
     const widthHeightExpectedArrangements = [
         [2, 3, [null, null, null, null, null, null]], 
@@ -195,4 +195,51 @@ test("getCurrentTeam finds correct team based on turn number", () => {
         //ASSERT
         expect(actualCurrentTeam).toBeTruthy()
     }
+})
+
+
+//TESTS FOR: getting and setting with sessionStorage
+class SessionStorageMock {
+    
+    
+    constructor() {
+
+    }
+
+    getItem(key) {
+        if (key !== "gamedata") {
+            return -1
+        }
+
+
+    }
+
+    setItem(key, value) {
+        
+    }
+}
+
+const sessionStorageMock = new SessionStorageMock()
+Object.defineProperty(window, 'sessionStorage', {value: sessionStorageMock})
+
+
+test("updateStorageObject puts stringified game data into sessionStorage", () => {
+    //ARRANGE
+    const exampleData = getExampleLocalGameData()
+    exampleData._gridHeight = 1
+    exampleData._gridWidth = 2
+    exampleData.playerOneScore = 3
+    exampleData.playerTwoScore = 4
+    exampleData.currentTurn = 5
+    exampleData.boardState = ["RED", "YELLOW"]
+    exampleData.cellNames = ["CELL"]
+    exampleData.cellImageNames = ["IMAGE"]
+    exampleData.teams = ["YELLOW", "RED"]
+
+    //ACT
+    console.log("testing the override:")
+    storageModule.updateStorageObject(exampleData)
+
+    //ASSERT
+
 })

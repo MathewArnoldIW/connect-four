@@ -94,5 +94,7 @@ function getGameData() {
 
 
 module.exports = {
-    LocalGameData
+    LocalGameData,
+    updateStorageObject,
+    getGameData
 }
