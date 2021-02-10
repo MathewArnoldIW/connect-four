@@ -225,16 +225,32 @@ Object.defineProperty(window, 'sessionStorage', {value: sessionStorageMock})
 
 test("updateStorageObject puts stringified game data into sessionStorage", () => {
     //ARRANGE
+    const propertiesToTest = {
+        "_gridHeight": 1,
+        "_gridWidth": 2,
+        "playerOneScore": 3,
+        "playerTwoScore": 4,
+        "currentTurn": 5,
+        "boardState": ["RED", "YELLOW"],
+        "cellNames": ["CELL"],
+        "cellImageNames": ["IMAGE"],
+        "teams": ["YELLOW", "RED"]
+    }
+    
     const exampleData = getExampleLocalGameData()
-    exampleData._gridHeight = 1
-    exampleData._gridWidth = 2
-    exampleData.playerOneScore = 3
-    exampleData.playerTwoScore = 4
-    exampleData.currentTurn = 5
-    exampleData.boardState = ["RED", "YELLOW"]
-    exampleData.cellNames = ["CELL"]
-    exampleData.cellImageNames = ["IMAGE"]
-    exampleData.teams = ["YELLOW", "RED"]
+    // exampleData._gridHeight = 1
+    // exampleData._gridWidth = 2
+    // exampleData.playerOneScore = 3
+    // exampleData.playerTwoScore = 4
+    // exampleData.currentTurn = 5
+    // exampleData.boardState = ["RED", "YELLOW"]
+    // exampleData.cellNames = ["CELL"]
+    // exampleData.cellImageNames = ["IMAGE"]
+    // exampleData.teams = ["YELLOW", "RED"]
+
+    for (const [key, value] of Object.entries(propertiesToTest)) {
+        exampleData[key] = value    
+    }
 
     //ACT
     console.log("testing the override:")
@@ -243,5 +259,8 @@ test("updateStorageObject puts stringified game data into sessionStorage", () =>
     const actualObject = JSON.parse(loadedString)
 
     //ASSERT
-    expect(1).toStrictEqual(actualObject._gridHeight)
+    for (const [key, value] of Object.entries(propertiesToTest)) {
+        expect(value).toStrictEqual(propertiesToTest[key])  
+    }
+    
 })
