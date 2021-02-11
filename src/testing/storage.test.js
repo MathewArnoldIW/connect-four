@@ -201,13 +201,18 @@ test("getCurrentTeam finds correct team based on turn number", () => {
 //TESTS FOR: getting and setting with sessionStorage
 class SessionStorageMock {
     loadedString
+    stringifiedData
     
     constructor() {
 
     }
 
     getItem(key) {
-        
+        if (key !== "gamedata") {
+            return null
+        } else {
+            return this.stringifiedData
+        }
     }
 
     setItem(key, value) {
@@ -216,6 +221,10 @@ class SessionStorageMock {
         } else {
             this.loadedString = value
         }
+    }
+
+    setStringifiedJSON(stringifiedData) {
+        this.stringifiedData = stringifiedData
     }
 }
 
@@ -245,11 +254,10 @@ test("updateStorageObject puts stringified game data into sessionStorage", () =>
     }
 
     //ACT
-    console.log("testing the override:")
     storageModule.updateStorageObject(exampleData)
     const loadedString = sessionStorageMock.loadedString
     const actualObject = JSON.parse(loadedString)
-
+    
     //ASSERT
     for (const [key, value] of Object.entries(propertiesToTest)) {
         expect(value).toStrictEqual(actualObject[key])
@@ -257,3 +265,30 @@ test("updateStorageObject puts stringified game data into sessionStorage", () =>
 })
 
 
+test("getGameData() returns correct object type", () => {
+    //ARRANGE
+    const propertiesToTest = {
+        "_gridHeight": 6,
+        "_gridWidth": 7,
+        "playerOneScore": 8,
+        "playerTwoScore": 9,
+        "currentTurn": 10,
+        "boardState": ["BLUE", "GREEN"],
+        "cellNames": ["CELLNAME"],
+        "cellImageNames": ["IMAGENAME"],
+        "teams": ["GREEN", "BLUE"]
+    }
+
+    const propertiesToTestStringified = JSON.stringify(propertiesToTest)
+    sessionStorageMock.setStringifiedJSON(propertiesToTestStringified)
+
+    //ACT
+    const actualClassInstance = storageModule.getGameData()
+
+    //ASSERT
+    expect(actualClassInstance instanceof storageModule.LocalGameData).toBeTruthy()
+    
+    for (const [key, value] of Object.entries(propertiesToTest)) {
+        expect(value).toStrictEqual(actualClassInstance[key])
+    }
+})
