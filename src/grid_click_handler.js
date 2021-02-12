@@ -20,3 +20,9 @@ function drawGrid() {
     console.log("Called drawGrid()")
     return null
 }
+
+
+module.exports = {
+    clickGridCell,
+    drawGrid
+}

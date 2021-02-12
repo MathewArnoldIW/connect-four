@@ -28,6 +28,7 @@ function createCell(row, image, j, i) {
     let cell = row.insertCell(-1)
     const cellName = getCellNameFromCoords(j, i, false)
     cell.id = cellName
+    cell.class = `cell-parent`
     cell.appendChild(image)
 
     console.log(`Appended the cell "${cellName}" to cellNames`)
