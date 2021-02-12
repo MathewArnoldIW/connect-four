@@ -1,36 +1,57 @@
 function initializeGrid(gameData) {
     console.log(`Called initializeGrid()`)
     let grid = document.createElement(`TABLE`)
+    createGridParent(grid)
 
+    const gameDataWithCells = createCellsAndImages(gameData, grid)
+    return gameDataWithCells
+}
+
+
+function createCellsAndImages(gameData, grid) {
     for (let i = gameData._gridHeight - 1; i >= 0; i--) {
         let row = grid.insertRow(-1)
 
         for (let j = 0; j < gameData._gridWidth; j++) {
-            let cellName = getCellNameFromCoords(j, i, false)
-            let cellImageName = getCellNameFromCoords(j, i, true)
-            
-            let cell = row.insertCell(-1)
-            let image = document.createElement(`img`)
+            const cellImage = createCellImage(j, i)
+            const cell = createCell(row, cellImage, j, i)
 
-            cell.id = cellName
-            image.id = cellImageName
-            image.class = `cell-image`
-            image.src = `../img/tokens/cell_null.png`
-
-            cell.appendChild(image)
-            gameData.pushNewCellElement(cellName, cellImageName)
-        
-            console.log(`Appended the cell "${cellName}" to cellNames`)
-            console.log(`Appended the image "${cellImageName}" to cellImageNames`)
+            gameData.pushNewCellElement(cell.id, cellImage.id)
         }
     }
 
+    return gameData
+}
+
+
+function createCell(row, image, j, i) {
+    let cell = row.insertCell(-1)
+    const cellName = getCellNameFromCoords(j, i, false)
+    cell.id = cellName
+    cell.appendChild(image)
+
+    console.log(`Appended the cell "${cellName}" to cellNames`)
+    return cell
+}
+
+
+function createCellImage(j, i) {
+    let image = document.createElement(`img`)  
+    const cellImageName = getCellNameFromCoords(j, i, true)
+    image.id = cellImageName
+    image.class = `cell-image` //deal with these magic strings
+    image.src = `../img/tokens/cell_null.png`
+
+    console.log(`Appended the image "${cellImageName}" to cellImageNames`)
+    return image
+}
+
+
+function createGridParent(grid) {
     let gridParent = document.getElementById(`connect-four-grid`);
     gridParent.innerHTML = ``
     gridParent.appendChild(grid)
     console.log(`Generated grid added as child to the 'connect-four-grid' element`)
-
-    return gameData
 }
 
 
@@ -47,4 +68,13 @@ function bindClickEvents(gameData) {
     
         console.log(`Added event listener to the cell at (${x}, ${y})`)
     }
+}
+
+
+module.exports = {
+    initializeGrid,
+    createCell,
+    createCellImage,
+    createGridParent,
+    bindClickEvents
 }
