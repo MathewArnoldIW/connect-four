@@ -64,8 +64,8 @@ function bindClickEvents(gameData) {
         const x = parseInt(cellNameSegments[1])
         const y = parseInt(cellNameSegments[2])
 
-        const gridPosition = document.getElementById(cellName);
-        gridPosition.addEventListener(`click`, clickGridCell.bind(null, x, y));
+        const gridPosition = document.getElementById(cellName)
+        gridPosition.addEventListener(`click`, clickGridCell.bind(null, x, y))
     
         console.log(`Added event listener to the cell at (${x}, ${y})`)
     }
