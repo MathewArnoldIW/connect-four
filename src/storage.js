@@ -4,6 +4,7 @@ class LocalGameData {
     boardState
     cellNames = []
     cellImageNames = []
+    imageFileNameTemplate = [`../img/tokens/cell_`, `.png`]
 
     teamColors = [
         "blue",
@@ -21,6 +22,7 @@ class LocalGameData {
     playerTwoScore = 0
     currentTurn = 0
     teams
+    teamTokenFileNames = [null, null]
     
     playerOneFirst
     playerTwoFirst
@@ -87,6 +89,11 @@ class LocalGameData {
         const randomIndex = Math.floor(Math.random() * availableColors.length)
 
         return availableColors[randomIndex]
+    }
+
+    addTokenFileName(teamIndex, colorToAdd) {
+        const fileNameToAdd = this.imageFileNameTemplate.join(colorToAdd)
+        this.teamTokenFileNames[teamIndex] = fileNameToAdd
     }
 }
 
