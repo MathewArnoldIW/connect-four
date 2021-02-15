@@ -28,7 +28,7 @@ function createCell(row, image, j, i) {
     let cell = row.insertCell(-1)
     const cellName = getCellNameFromCoords(j, i, false)
     cell.id = cellName
-    cell.class = `cell-parent`
+    cell.className = `cell-parent`
     cell.appendChild(image)
 
     console.log(`Appended the cell "${cellName}" to cellNames`)
@@ -40,7 +40,7 @@ function createCellImage(j, i) {
     let image = document.createElement(`img`)  
     const cellImageName = getCellNameFromCoords(j, i, true)
     image.id = cellImageName
-    image.class = `cell-image` //deal with these magic strings
+    image.className = `cell-image` //deal with these magic strings
     image.src = `../img/tokens/cell_null.png`
 
     console.log(`Appended the image "${cellImageName}" to cellImageNames`)

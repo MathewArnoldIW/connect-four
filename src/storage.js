@@ -5,6 +5,16 @@ class LocalGameData {
     cellNames = []
     cellImageNames = []
 
+    availableColors = [
+        "blue",
+        "brown",
+        "green",
+        "orange",
+        "purple",
+        "red",
+        "yellow"
+    ]
+
     playerOneName = "playerOne"
     playerTwoName = "playerTwo"
     playerOneScore = 0

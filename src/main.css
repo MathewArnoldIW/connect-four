@@ -1,14 +1,21 @@
 .cell-parent {
-    width: 8%;
     margin: 0px;
+    padding: 0px;
+    border: 0px;
 }
 
 .cell-image {
-    width: 8%;
+    width: 100px;
+    height: 100px;
     margin: 0px;
+    padding: 0px;
+    border: 0px;
 }
 
-
 #connect-four-grid {
-    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    border-spacing: 0px;
+    grid-gap: 0px;
 }
