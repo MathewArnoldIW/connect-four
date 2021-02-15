@@ -292,3 +292,27 @@ test("getGameData() returns correct object type", () => {
         expect(value).toStrictEqual(actualClassInstance[key])
     }
 })
+
+
+test("pickRandomColor() will always avoid the blacklisted color", () => {
+    const exampleData = getExampleLocalGameData()
+    exampleData.teamColors = ["black", "white"]
+    
+    const blacklistedColors = ["black", "white"]
+    const expectedRandomColors = ["white", "black"]
+    const iterations = 10
+    
+    for (let i = 0; i < blacklistedColors.length; i++) {
+        for (let j = 0; j < iterations; j++) {    
+            //ARRANGE
+            const blacklistedColor = blacklistedColors[i]
+            const expectedRandomColor = expectedRandomColors[i]
+
+            //ACT
+            const actualRandomColor = exampleData.pickRandomColor(blacklistedColor)
+
+            //ASSERT
+            expect(expectedRandomColor).toStrictEqual(actualRandomColor)
+        }
+    }
+})

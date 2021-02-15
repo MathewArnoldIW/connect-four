@@ -5,7 +5,7 @@ class LocalGameData {
     cellNames = []
     cellImageNames = []
 
-    availableColors = [
+    teamColors = [
         "blue",
         "brown",
         "green",
@@ -80,6 +80,13 @@ class LocalGameData {
     getCurrentTeam() {
         const teamIndex = this.currentTurn % this.teams.length
         return this.teams[teamIndex]
+    }
+
+    pickRandomColor(blacklistedColor = null) {
+        const availableColors = this.teamColors.filter(color => color != blacklistedColor)
+        const randomIndex = Math.floor(Math.random() * availableColors.length)
+
+        return availableColors[randomIndex]
     }
 }
 
