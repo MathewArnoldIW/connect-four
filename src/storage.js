@@ -30,6 +30,12 @@ class LocalGameData {
     constructor() {
         console.log(`New instance of LocalGameData created`)
         this.generateTeamOrderArrays()
+
+        const teamOneColor = this.pickRandomColor()
+        const teamTwoColor = this.pickRandomColor(teamOneColor)
+
+        this.addTokenFileName(0, teamOneColor)
+        this.addTokenFileName(1, teamTwoColor) //TODO: constructor has not been tested
     }
 
     initializeNewGameData() {
