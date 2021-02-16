@@ -1,28 +1,42 @@
 function clickGridCell(x, y, event) {
     console.log(`Called clickGridCell() - Clicked (${x}, ${y})`)
-
+    
     const gameData = getGameData()
-    currentTeam = gameData.getCurrentTeam()
 
-    // let board = dropPieceIntoColumn(currentTeam, y)
-    // let piecePlacedSuccess = board == null ? false : true
+    if (!gameData.isGameInSession) {
+        return
+    }
 
-    // if (piecePlacedSuccess != null) {
-    //     currentTurn++
-
-    //     checkWinner(currentTeam, x, y)
-    //     drawGrid()
-    // }
+    attemptToPlacePiece(x, gameData)
 }
 
 
-function drawGrid() {
-    console.log("Called drawGrid()")
-    return null
+function attemptToPlacePiece(x, gameData) {
+    console.log(`Called attemptToPlacePiece()`)
+
+    const isColumnFull = findIsColumnFull(x, gameData)
+
+    if (isColumnFull) {
+        //tell the user!
+    }
+    else {
+        gameData.takeTurn(x)
+    }
+}
+
+
+function findIsColumnFull(x, gameData) {
+    console.log(`Called findIsColumnFull()`)
+    const columnValues = gameData.getLineOfValues(x, 0, 0, 1)
+
+    isFull = columnValues.includes(null) ? false : true
+    return isFull
 }
 
 
 module.exports = {
     clickGridCell,
+    attemptToPlacePiece,
+    findIsColumnFull,
     drawGrid
 }

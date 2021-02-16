@@ -6,7 +6,7 @@ function initializeGame() {
 
     const gameDataWithGrid = initializeGrid(newGameData)
     bindClickEvents(gameDataWithGrid)
-    drawGrid(gameDataWithGrid)
+    gameDataWithGrid.drawGrid()
     updateStorageObject(gameDataWithGrid)
     
     console.log(`---INITIALIZATION ENDS---`)
