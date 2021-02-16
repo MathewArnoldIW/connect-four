@@ -196,7 +196,7 @@ class LocalGameData {
 
     checkWinner(xCoordPlayed, yCoordPlayed) {
         for (let vector of this.ordinalVectors) {
-            if (this.findMatchingLineLength(xCoordPlayed, yCoordPlayed, vector) >= 4) {
+            if (this.findMatchingLineLength(xCoordPlayed, yCoordPlayed, vector) >= 3) {
                 return true
             }
         }
@@ -205,17 +205,21 @@ class LocalGameData {
     }
 
     findMatchingLineLength(rootXCoord, rootYCoord, vector) {
-        let lineLength = 1
         const invertedVector = [vector[0] * -1, vector[1] * -1]
-        console.log(`vector: ${vector}`)
-        console.log(`inverted vector: ${invertedVector}`)
 
-        const valueOfRoot = this.boardState[this.getBoardIndex(rootXCoord, rootYCoord)]
+        const lineLengthVectorDirection = this.countValuesSingleDirection(rootXCoord, rootYCoord, vector)
+        const lineLengthInvertedVectorDirection = this.countValuesSingleDirection(rootXCoord, rootYCoord, invertedVector)
+
+        return lineLengthVectorDirection + lineLengthInvertedVectorDirection
+    }
+
+    countValuesSingleDirection(rootXCoord, rootYCoord, vector) {
         let currentXCoord = rootXCoord
         let currentYCoord = rootYCoord
+        let lineLength = 0
 
-        console.log(`value to compare against: ${valueOfRoot}`)
-
+        const valueOfRoot = this.boardState[this.getBoardIndex(rootXCoord, rootYCoord)]
+        
         while (true) {
             currentXCoord += vector[0]
             currentYCoord += vector[1]
@@ -230,24 +234,6 @@ class LocalGameData {
             }
         }
 
-        currentXCoord = rootXCoord
-        currentYCoord = rootYCoord
-
-        while (true) {
-            currentXCoord += invertedVector[0]
-            currentYCoord += invertedVector[1]
-            
-            const currentValue = this.getCellValue(currentXCoord, currentYCoord)
-            console.log(`value being checked: ${currentValue}`)
-
-            if (currentValue == valueOfRoot) {
-                lineLength++
-            } else {
-                break
-            }
-        }
-
-        console.log(`lineLength found: ${lineLength}`)
         return lineLength
     }
 }
