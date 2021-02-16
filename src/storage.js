@@ -207,21 +207,21 @@ class LocalGameData {
     findMatchingLineLength(rootXCoord, rootYCoord, vector) {
         let lineLength = 1
         const invertedVector = [vector[0] * -1, vector[1] * -1]
+        console.log(`vector: ${vector}`)
+        console.log(`inverted vector: ${invertedVector}`)
 
         const valueOfRoot = this.boardState[this.getBoardIndex(rootXCoord, rootYCoord)]
         let currentXCoord = rootXCoord
         let currentYCoord = rootYCoord
 
+        console.log(`value to compare against: ${valueOfRoot}`)
+
         while (true) {
             currentXCoord += vector[0]
             currentYCoord += vector[1]
-            const currentBoardIndex = this.getBoardIndex(currentXCoord, currentYCoord)
 
-            if (currentBoardIndex == -1) {
-                break
-            }
-
-            const currentValue = this.getCellValue(currentBoardIndex)
+            const currentValue = this.getCellValue(currentXCoord, currentYCoord)
+            console.log(`value being checked: ${currentValue}`)
 
             if (currentValue == valueOfRoot) {
                 lineLength++
@@ -236,13 +236,9 @@ class LocalGameData {
         while (true) {
             currentXCoord += invertedVector[0]
             currentYCoord += invertedVector[1]
-            const currentBoardIndex = this.getBoardIndex(currentXCoord, currentYCoord)
-
-            if (currentBoardIndex == -1) {
-                break
-            }
-
-            const currentValue = this.getCellValue(currentBoardIndex)
+            
+            const currentValue = this.getCellValue(currentXCoord, currentYCoord)
+            console.log(`value being checked: ${currentValue}`)
 
             if (currentValue == valueOfRoot) {
                 lineLength++
