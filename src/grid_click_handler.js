@@ -8,6 +8,7 @@ function clickGridCell(x, y, event) {
     }
 
     attemptToPlacePiece(x, gameData)
+    updateStorageObject(gameData)
 }
 
 
@@ -37,6 +38,5 @@ function findIsColumnFull(x, gameData) {
 module.exports = {
     clickGridCell,
     attemptToPlacePiece,
-    findIsColumnFull,
-    drawGrid
+    findIsColumnFull
 }

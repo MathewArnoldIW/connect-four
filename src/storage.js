@@ -28,6 +28,13 @@ class LocalGameData {
     playerOneFirst
     playerTwoFirst
 
+    ordinalVectors = [
+        [1, 1],
+        [1, 0],
+        [0, 1],
+        [1, -1]
+    ]
+
     constructor() {
         console.log(`New instance of LocalGameData created`)
         this.generateTeamOrderArrays()
@@ -160,19 +167,18 @@ class LocalGameData {
         const firstEmptyAsBoardIndex = this.getBoardIndex(columnPlayed, firstEmptyIndex)
 
         this.boardState[firstEmptyAsBoardIndex] = this.getCurrentTeam()
-        this.checkWinner(firstEmptyAsBoardIndex)
+        const isWin = this.checkWinner(columnPlayed, firstEmptyIndex)
+
+        console.log(`was there a win? ${isWin}`)
 
         this.currentTurn++ //should probably move into checkWinner once written
         this.drawGrid()
     }
 
-    checkWinner(boardIndexPlayed) {
-
-    }
-
     drawGrid() {
         console.log(`Called drawGrid()`)
         console.log(this.boardState)
+        console.log(`turn: ${this.currentTurn}`)
         
         for (const imageName of this.cellImageNames) {
             const imageElement = document.getElementById(imageName)
@@ -186,6 +192,67 @@ class LocalGameData {
             const teamIndex = this.teams.findIndex(teamName => teamName == cellValue)
             imageElement.src = teamIndex == -1 ? `../img/tokens/cell_null.png` : this.teamTokenFileNames[teamIndex]
         }
+    }
+
+    checkWinner(xCoordPlayed, yCoordPlayed) {
+        for (let vector of this.ordinalVectors) {
+            if (this.findMatchingLineLength(xCoordPlayed, yCoordPlayed, vector) >= 4) {
+                return true
+            }
+        }
+
+        return false
+    }
+
+    findMatchingLineLength(rootXCoord, rootYCoord, vector) {
+        let lineLength = 1
+        const invertedVector = [vector[0] * -1, vector[1] * -1]
+
+        const valueOfRoot = this.boardState[this.getBoardIndex(rootXCoord, rootYCoord)]
+        let currentXCoord = rootXCoord
+        let currentYCoord = rootYCoord
+
+        while (true) {
+            currentXCoord += vector[0]
+            currentYCoord += vector[1]
+            const currentBoardIndex = this.getBoardIndex(currentXCoord, currentYCoord)
+
+            if (currentBoardIndex == -1) {
+                break
+            }
+
+            const currentValue = this.getCellValue(currentBoardIndex)
+
+            if (currentValue == valueOfRoot) {
+                lineLength++
+            } else {
+                break
+            }
+        }
+
+        currentXCoord = rootXCoord
+        currentYCoord = rootYCoord
+
+        while (true) {
+            currentXCoord += invertedVector[0]
+            currentYCoord += invertedVector[1]
+            const currentBoardIndex = this.getBoardIndex(currentXCoord, currentYCoord)
+
+            if (currentBoardIndex == -1) {
+                break
+            }
+
+            const currentValue = this.getCellValue(currentBoardIndex)
+
+            if (currentValue == valueOfRoot) {
+                lineLength++
+            } else {
+                break
+            }
+        }
+
+        console.log(`lineLength found: ${lineLength}`)
+        return lineLength
     }
 }
 
