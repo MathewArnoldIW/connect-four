@@ -169,9 +169,21 @@ class LocalGameData {
         this.boardState[firstEmptyAsBoardIndex] = this.getCurrentTeam()
         const isWin = this.checkWinner(columnPlayed, firstEmptyIndex)
 
-        console.log(`was there a win? ${isWin}`)
+        if (isWin) {
+            console.log("A WINNER IS YOU!")
+            this.winActions()
+        } else {
+            this.gameContinueActions()
+        }
+    }
 
-        this.currentTurn++ //should probably move into checkWinner once written
+    gameContinueActions() {
+        this.currentTurn++
+        this.drawGrid()
+    }
+
+    winActions() {
+        this.isGameInSession = false
         this.drawGrid()
     }
 
