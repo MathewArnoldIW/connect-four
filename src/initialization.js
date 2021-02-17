@@ -59,7 +59,7 @@ function createGridParent(grid) {
 }
 
 
-function bindClickEvents(gameData) {
+function bindInteractionEvents(gameData) {
     console.log(`Called bindClickEvents()`)
 
     for (cellName of gameData.cellNames) {
@@ -69,8 +69,10 @@ function bindClickEvents(gameData) {
 
         const gridPosition = document.getElementById(cellName)
         gridPosition.addEventListener(`click`, clickGridCell.bind(null, x, y))
+        gridPosition.addEventListener(`mouseover`, mouseOverGridCell.bind(null, cellName))
+        gridPosition.addEventListener(`mouseout`, mouseOutGridCell.bind(null, cellName))
     
-        console.log(`Added event listener to the cell at (${x}, ${y})`)
+        console.log(`Added event listeners to the cell at (${x}, ${y})`)
     }
 }
 
@@ -80,5 +82,5 @@ module.exports = {
     createCell,
     createCellImage,
     createGridParent,
-    bindClickEvents
+    bindInteractionEvents
 }

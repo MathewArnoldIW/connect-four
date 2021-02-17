@@ -12,6 +12,20 @@ function clickGridCell(x, y, event) {
 }
 
 
+function mouseOverGridCell(cellName, event) {
+    const cell = document.getElementById(cellName)
+    const cellImage = cell.children[0]
+    cellImage.style.filter = `brightness(90%)`
+}
+
+
+function mouseOutGridCell(cellName, event) {
+    const cell = document.getElementById(cellName)
+    const cellImage = cell.children[0]
+    cellImage.style.filter = `brightness(100%)`
+}
+
+
 function attemptToPlacePiece(x, gameData) {
     console.log(`Called attemptToPlacePiece()`)
 

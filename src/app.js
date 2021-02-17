@@ -5,7 +5,7 @@ function initializeGame() {
     newGameData.initializeNewGameData()
 
     const gameDataWithGrid = initializeGrid(newGameData)
-    bindClickEvents(gameDataWithGrid)
+    bindInteractionEvents(gameDataWithGrid)
     gameDataWithGrid.drawGrid()
     updateStorageObject(gameDataWithGrid)
     
