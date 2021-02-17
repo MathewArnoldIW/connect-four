@@ -91,5 +91,6 @@ module.exports = {
     createCell,
     createCellImage,
     createGridParent,
-    bindInteractionEvents
+    bindGridInteractionEvents,
+    bindColorSelectEvents
 }

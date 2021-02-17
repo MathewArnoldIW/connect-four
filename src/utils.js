@@ -41,7 +41,10 @@ function addColorOptions(selects, allColors, blacklistedColors) {
 
 
 function populateColorSelects(allColors, blacklistedColors) {
-    
+    console.log(`Called populateColorSelects()`)
+    console.log(`allColors = ${allColors}`)
+    console.log(`blacklistedColors = ${blacklistedColors}`)
+
     const playerOneSelect = document.getElementById("player-one-color-select")
     const playerTwoSelect = document.getElementById("player-two-color-select")
     const selects = [playerOneSelect, playerTwoSelect]

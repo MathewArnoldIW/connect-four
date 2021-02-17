@@ -127,6 +127,19 @@ class LocalGameData {
         return availableColors[randomIndex]
     }
 
+    updateTeamColor(teamIndex, newColor) {
+        console.log(`Called updateTeamColor()`)
+        console.log(`teamColors before update are: ${this.teamColors}`)
+        console.log(`newColor is: ${newColor}`)
+
+        this.teamColors[teamIndex] = newColor
+        this.addTokenFileNameToTeam(teamIndex, newColor)
+
+        console.log(`teamColors after update are: ${this.teamColors}`)
+        
+        populateColorSelects(this.allTeamColors, this.teamColors)
+    }
+
     getTokenFileName(color) {
         const colorFileNameSegment = color == null ? `null` : color
         return this.imageFileNameTemplate.join(colorFileNameSegment)
@@ -209,6 +222,11 @@ class LocalGameData {
         return false
     }
 
+    checkStalemate() {
+        const cellCount = this._gridHeight * this._gridWidth
+        return this.currentTurn >= cellCount
+    }
+
     findMatchingLineLength(rootXCoord, rootYCoord, vector) {
         const invertedVector = [vector[0] * -1, vector[1] * -1]
 
@@ -245,11 +263,20 @@ class LocalGameData {
     gameContinueActions() {
         this.currentTurn++
         this.drawGrid()
+        const isDraw = this.checkStalemate()
+
+        if (isDraw) {
+            this.drawActions()
+        }
     }
 
     winActions() {
         this.isGameInSession = false
         this.drawGrid()
+    }
+
+    drawActions() {
+        resetDrawnGame(this)
     }
 }
 

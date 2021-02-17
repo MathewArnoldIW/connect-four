@@ -50,9 +50,19 @@ function findIsColumnFull(x, gameData) {
 
 
 function changePlayerColor(playerIndex, event) {
+    console.log(`Called changePlayerColor()`)
+    
     const gameData = getGameData()
-    const chosenColor = event.value
-    console.log(`NEW CHOSEN COLOR! ${chosenColor}`)
+    const optionIndex = event.target.options.selectedIndex
+    const selectElement = event.path[0]
+    const colorChosen = selectElement.options[optionIndex].text.toLowerCase()
+
+    if (colorChosen == "choose a new colour...") {
+        return
+    }
+    
+    gameData.updateTeamColor(playerIndex, colorChosen)
+    gameData.drawGrid()
     updateStorageObject(gameData)
 }
 

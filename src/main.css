@@ -20,7 +20,6 @@ h1 {
     margin: 0px;
     padding: 0px;
     border: 0px;
-    /* filter: brightness(90%); */
 }
 
 #connect-four-grid {
@@ -40,14 +39,6 @@ h1 {
     border: 0px;
 }
 
-/* #player-one-color-select {
-    width: 15%;
-}
-
-#player-two-color-select {
-    width: 15%;
-} */
-
 .color-select {
     width: 12%;
     margin-left: 2%;
@@ -60,7 +51,6 @@ h1 {
 
 h2 {
     color: #6db6cc;
-    /* text-align: center; */
     font-family: Garamond, Garamond, serif;
 }
 
@@ -71,4 +61,8 @@ h2 {
     width: 440px;
     margin-bottom: 0px;
     padding-bottom: 0px;
+}
+
+.fading-image {
+    
 }

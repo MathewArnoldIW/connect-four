@@ -263,6 +263,10 @@ class SessionStorageMock {
         }
     }
 
+    getLastPlay() {
+        return [1, 2]
+    }
+
     setStringifiedJSON(stringifiedData) {
         this.stringifiedData = stringifiedData
     }
