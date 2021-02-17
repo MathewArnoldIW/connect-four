@@ -49,6 +49,14 @@ function findIsColumnFull(x, gameData) {
 }
 
 
+function changePlayerColor(playerIndex, event) {
+    const gameData = getGameData()
+    const chosenColor = event.value
+    console.log(`NEW CHOSEN COLOR! ${chosenColor}`)
+    updateStorageObject(gameData)
+}
+
+
 module.exports = {
     clickGridCell,
     attemptToPlacePiece,

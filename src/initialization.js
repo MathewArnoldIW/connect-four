@@ -59,7 +59,7 @@ function createGridParent(grid) {
 }
 
 
-function bindInteractionEvents(gameData) {
+function bindGridInteractionEvents(gameData) {
     console.log(`Called bindClickEvents()`)
 
     for (cellName of gameData.cellNames) {
@@ -74,6 +74,15 @@ function bindInteractionEvents(gameData) {
     
         console.log(`Added event listeners to the cell at (${x}, ${y})`)
     }
+}
+
+
+function bindColorSelectEvents() {
+    const playerOneColorSelect = document.getElementById("player-one-color-select")
+    const playerTwoColorSelect = document.getElementById("player-two-color-select")
+
+    playerOneColorSelect.addEventListener(`change`, changePlayerColor.bind(null, 0))
+    playerTwoColorSelect.addEventListener(`change`, changePlayerColor.bind(null, 1))
 }
 
 
