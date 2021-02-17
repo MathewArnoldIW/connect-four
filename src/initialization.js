@@ -1,6 +1,8 @@
 function initializeGrid(gameData) {
     console.log(`Called initializeGrid()`)
     let grid = document.createElement(`TABLE`)
+    //grid.cellSpacing = 0
+
     createGridParent(grid)
 
     const gameDataWithCells = createCellsAndImages(gameData, grid)
@@ -11,6 +13,7 @@ function initializeGrid(gameData) {
 function createCellsAndImages(gameData, grid) {
     for (let i = gameData._gridHeight - 1; i >= 0; i--) {
         let row = grid.insertRow(-1)
+        row.className = `grid-row`
 
         for (let j = 0; j < gameData._gridWidth; j++) {
             const cellImage = createCellImage(j, i)

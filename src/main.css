@@ -1,3 +1,7 @@
+body {
+    background-color: #f4f6f9;
+}
+
 .cell-parent {
     margin: 0px;
     padding: 0px;
@@ -13,9 +17,18 @@
 }
 
 #connect-four-grid {
-    margin: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
     padding: 0px;
     border: 0px;
     border-spacing: 0px;
     grid-gap: 0px;
+    border-collapse: collapse;
+}
+
+.grid-row {
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
 }

@@ -177,16 +177,6 @@ class LocalGameData {
         }
     }
 
-    gameContinueActions() {
-        this.currentTurn++
-        this.drawGrid()
-    }
-
-    winActions() {
-        this.isGameInSession = false
-        this.drawGrid()
-    }
-
     drawGrid() {
         console.log(`Called drawGrid()`)
         console.log(this.boardState)
@@ -214,6 +204,16 @@ class LocalGameData {
         }
 
         return false
+    }
+
+    gameContinueActions() {
+        this.currentTurn++
+        this.drawGrid()
+    }
+
+    winActions() {
+        this.isGameInSession = false
+        this.drawGrid()
     }
 
     findMatchingLineLength(rootXCoord, rootYCoord, vector) {
