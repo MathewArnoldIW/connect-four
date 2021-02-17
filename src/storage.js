@@ -6,7 +6,7 @@ class LocalGameData {
     cellImageNames = []
     imageFileNameTemplate = [`../img/tokens/cell_`, `.png`]
 
-    teamColors = [
+    allTeamColors = [
         "blue",
         "brown",
         "green",
@@ -22,6 +22,7 @@ class LocalGameData {
     playerTwoScore = 0
     currentTurn = 0
     teams
+    teamColors = [null, null]
     teamTokenFileNames = [null, null]
     isGameInSession = true
     
@@ -45,11 +46,13 @@ class LocalGameData {
         this.generateEmptyBoardArray()
         this.chooseTeamOrder()
 
-        const teamOneColor = this.pickRandomColor()
-        const teamTwoColor = this.pickRandomColor(teamOneColor)
+        this.teamColors[0] = this.pickRandomColor()
+        this.teamColors[1] = this.pickRandomColor(this.teamColors[0])
 
-        this.addTokenFileNameToTeam(0, teamOneColor)
-        this.addTokenFileNameToTeam(1, teamTwoColor) //TODO: constructor has not been tested
+        this.addTokenFileNameToTeam(0, this.teamColors[0])
+        this.addTokenFileNameToTeam(1, this.teamColors[1]) //TODO: constructor has not been tested
+
+        populateColorSelects(this.allTeamColors, this.teamColors)
     }
 
     getBoardIndex(x, y) {
@@ -118,7 +121,7 @@ class LocalGameData {
     }
 
     pickRandomColor(blacklistedColor = null) {
-        const availableColors = this.teamColors.filter(color => color != blacklistedColor)
+        const availableColors = this.allTeamColors.filter(color => color != blacklistedColor)
         const randomIndex = Math.floor(Math.random() * availableColors.length)
 
         return availableColors[randomIndex]
@@ -206,16 +209,6 @@ class LocalGameData {
         return false
     }
 
-    gameContinueActions() {
-        this.currentTurn++
-        this.drawGrid()
-    }
-
-    winActions() {
-        this.isGameInSession = false
-        this.drawGrid()
-    }
-
     findMatchingLineLength(rootXCoord, rootYCoord, vector) {
         const invertedVector = [vector[0] * -1, vector[1] * -1]
 
@@ -247,6 +240,16 @@ class LocalGameData {
         }
 
         return lineLength
+    }
+
+    gameContinueActions() {
+        this.currentTurn++
+        this.drawGrid()
+    }
+
+    winActions() {
+        this.isGameInSession = false
+        this.drawGrid()
     }
 }
 

@@ -39,3 +39,36 @@ h1 {
     padding: 0px;
     border: 0px;
 }
+
+/* #player-one-color-select {
+    width: 15%;
+}
+
+#player-two-color-select {
+    width: 15%;
+} */
+
+.color-select {
+    width: 12%;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+#color-selects {
+    text-align: center;
+}
+
+h2 {
+    color: #6db6cc;
+    /* text-align: center; */
+    font-family: Garamond, Garamond, serif;
+}
+
+#color-select-title-table {
+    margin-left: auto;
+    margin-right: auto;
+    table-layout: auto;
+    width: 440px;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+}
