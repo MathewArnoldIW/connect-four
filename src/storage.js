@@ -46,13 +46,25 @@ class LocalGameData {
         this.generateEmptyBoardArray()
         this.chooseTeamOrder()
 
-        this.teamColors[0] = this.pickRandomColor()
-        this.teamColors[1] = this.pickRandomColor(this.teamColors[0])
+        this.teamColors[0] = this.pickRandomColor(this.teamColors)
+        this.teamColors[1] = this.pickRandomColor(this.teamColors)
 
         this.addTokenFileNameToTeam(0, this.teamColors[0])
         this.addTokenFileNameToTeam(1, this.teamColors[1]) //TODO: constructor has not been tested
 
         populateColorSelects(this.allTeamColors, this.teamColors)
+    }
+
+    newRound(winningTeamIndex) {
+        if (winningTeamIndex == 0) {
+            this.playerOneScore++
+        } else if (winningTeamIndex == 1) {
+            this.playerTwoScore++
+        }
+        
+        this.currentTurn = 0
+        this.generateEmptyBoardArray()
+        this.chooseTeamOrder()
     }
 
     getBoardIndex(x, y) {
@@ -120,8 +132,8 @@ class LocalGameData {
         return this.teams[teamIndex]
     }
 
-    pickRandomColor(blacklistedColor = null) {
-        const availableColors = this.allTeamColors.filter(color => color != blacklistedColor)
+    pickRandomColor(blacklistedColors = []) {
+        const availableColors = this.allTeamColors.filter(color => !blacklistedColors.includes(color))
         const randomIndex = Math.floor(Math.random() * availableColors.length)
 
         return availableColors[randomIndex]
@@ -276,6 +288,7 @@ class LocalGameData {
     }
 
     drawActions() {
+        this.isGameInSession = false
         resetDrawnGame(this)
     }
 }

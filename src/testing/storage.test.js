@@ -200,9 +200,9 @@ test("getCurrentTeam finds correct team based on turn number", () => {
 
 test("pickRandomColor() will always avoid the blacklisted color", () => {
     const exampleData = getExampleLocalGameData()
-    exampleData.teamColors = ["black", "white"]
+    exampleData.allTeamColors = ["black", "white"]
     
-    const blacklistedColors = ["black", "white"]
+    const blacklistedColors = [["black"], ["white"]]
     const expectedRandomColors = ["white", "black"]
     const iterations = 10
     
@@ -222,7 +222,7 @@ test("pickRandomColor() will always avoid the blacklisted color", () => {
 })
 
 
-test("addTokenFileName() correctly formats the image file name and adds to teamTokenFileNames", () => {
+test("addTokenFileNameToTeam() correctly formats the image file name and adds to teamTokenFileNames", () => {
     //ARRANGE
     const exampleData = getExampleLocalGameData()
     const firstColor = "mauve"
@@ -230,8 +230,8 @@ test("addTokenFileName() correctly formats the image file name and adds to teamT
     const expectedFileNames = [`../img/tokens/cell_mauve.png`, `../img/tokens/cell_lilac.png`]
  
     //ACT
-    exampleData.addTokenFileName(0, firstColor)
-    exampleData.addTokenFileName(1, secondColor)
+    exampleData.addTokenFileNameToTeam(0, firstColor)
+    exampleData.addTokenFileNameToTeam(1, secondColor)
 
     //ASSERT
     expect(expectedFileNames).toStrictEqual(exampleData.teamTokenFileNames)
