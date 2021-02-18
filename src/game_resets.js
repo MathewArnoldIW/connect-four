@@ -1,28 +1,54 @@
-const { updateStorageObject } = require("./storage")
+async function resetDrawnGame(colorList, cellImageNames) {
+    await drawAnimation(colorList, cellImageNames)
 
-function resetDrawnGame(gameData) {
+    const gameData = getGameData()
     gameData.newRound(-1)
-    drawAnimation(gameData)
     updateStorageObject(gameData)
 }
 
 
-function resetWonGame() {
+function resetWonGame(colorList, cellImageNames, winningIndex) {
+    await drawAnimation(colorList, cellImageNames)
 
+    const gameData = getGameData()
+    gameData.newRound(winningIndex)
+    updateStorageObject(gameData)
 }
 
 
-function drawAnimation(gameData) {
-    const checkerColors = getTwoRandomColors(gameData)
-    
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 
-function getTwoRandomColors(gameData) {
-    const evenCheckerColor = gameData.pickRandomColor(gameData.teamColors)
-    const oddCheckerColor = gameData.pickRandomColor(gameData.teamColors.concat([evenCheckerColor]))
-    const evenCheckerTokenFile = gameData.getTokenFileName(evenCheckerColor)
-    const oddCheckerTokenFile = gameData.getTokenFileName(oddCheckerColor)
+async function drawAnimation(colorList, cellImageNames) {
+    const delay = 1000
 
-    return [evenCheckerTokenFile, oddCheckerTokenFile]
+    await sleep(delay)
+    await animateCheckerboard(colorList, cellImageNames, delay)
+}
+
+
+async function animateCheckerboard(checkerColors, imageNames, delayFactor) {
+    const delayProportion = 0.5
+    const delay = delayFactor * delayProportion
+
+    for (let i = 0; i < checkerColors.length; i++) {
+        const evenOrOdd = i % 2
+        
+        imageNames.filter(nameToCheck => imageNames.findIndex(name => name == nameToCheck) % 2 == evenOrOdd)
+            .map(name => document.getElementById(name))
+            .forEach(image => image.src = checkerColors[i])
+
+        await sleep(delay)
+    }
+}
+
+
+module.exports = {
+    resetDrawnGame,
+    resetWonGame,
+    getTwoRandomColors,
+    drawAnimation,
+    animateCheckerboard
 }

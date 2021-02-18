@@ -24,7 +24,7 @@ class LocalGameData {
     teams
     teamColors = [null, null]
     teamTokenFileNames = [null, null]
-    isGameInSession = true
+    isGameInSession
     
     playerOneFirst
     playerTwoFirst
@@ -53,6 +53,8 @@ class LocalGameData {
         this.addTokenFileNameToTeam(1, this.teamColors[1]) //TODO: constructor has not been tested
 
         populateColorSelects(this.allTeamColors, this.teamColors)
+
+        this.isGameInSession = true
     }
 
     newRound(winningTeamIndex) {
@@ -65,6 +67,7 @@ class LocalGameData {
         this.currentTurn = 0
         this.generateEmptyBoardArray()
         this.chooseTeamOrder()
+        this.isGameInSession = true
     }
 
     getBoardIndex(x, y) {
@@ -199,7 +202,7 @@ class LocalGameData {
 
         if (isWin) {
             console.log("A WINNER IS YOU!")
-            this.winActions()
+            this.winActions(this.currentTurn % this.teams.length)
         } else {
             this.gameContinueActions()
         }
@@ -282,15 +285,27 @@ class LocalGameData {
         }
     }
 
-    winActions() {
+    winActions(winningIndex) {
         this.isGameInSession = false
-        this.drawGrid()
+        this.drawGrid(this.getCheckerColors(), this.cellImageNames, winningIndex)
     }
 
     drawActions() {
         this.isGameInSession = false
-        resetDrawnGame(this)
+        resetDrawnGame(this.getCheckerColors(), this.cellImageNames)
     }
+
+    
+    getCheckerColors() {
+    const evenCheckerColor = this.pickRandomColor(this.teamColors)
+    const oddCheckerColor = this.pickRandomColor(this.teamColors.concat([evenCheckerColor]))
+
+    const evenCheckerTokenFile = this.getTokenFileName(evenCheckerColor)
+    const oddCheckerTokenFile = this.getTokenFileName(oddCheckerColor)
+    const nullTokenFile = this.getTokenFileName("null")
+
+    return [evenCheckerTokenFile, oddCheckerTokenFile, nullTokenFile, nullTokenFile]
+}
 }
 
 
@@ -299,6 +314,8 @@ function updateStorageObject(localGameData) {
 
     const stringifiedData = JSON.stringify(localGameData)
     sessionStorage.setItem("gamedata", stringifiedData) //deal with this magic string?
+
+    console.log(`state of isGameInSession at point of update: ${localGameData.isGameInSession}`)
 }
 
 
@@ -308,6 +325,8 @@ function getGameData() {
     const stringifiedData = sessionStorage.getItem("gamedata") //deal with this magic string?
     const parsedData = JSON.parse(stringifiedData)
     const gameDataObject = Object.assign(new LocalGameData(), parsedData)
+
+    console.log(`isGameInSession at the point of grabbing: ${gameDataObject.isGameInSession}`)
 
     return gameDataObject
 }

@@ -239,7 +239,7 @@ test("addTokenFileNameToTeam() correctly formats the image file name and adds to
 
 
 //TESTS FOR: getting and setting with sessionStorage
-class SessionStorageMock {
+class SessionStorageStub {
     loadedString
     stringifiedData
     
@@ -273,8 +273,8 @@ class SessionStorageMock {
 }
 
 
-const sessionStorageMock = new SessionStorageMock()
-Object.defineProperty(window, 'sessionStorage', {value: sessionStorageMock})
+const sessionStorageStub = new SessionStorageStub()
+Object.defineProperty(window, 'sessionStorage', {value: sessionStorageStub})
 
 
 test("updateStorageObject puts stringified game data into sessionStorage", () => {
@@ -299,7 +299,7 @@ test("updateStorageObject puts stringified game data into sessionStorage", () =>
 
     //ACT
     storageModule.updateStorageObject(exampleData)
-    const loadedString = sessionStorageMock.loadedString
+    const loadedString = sessionStorageStub.loadedString
     const actualObject = JSON.parse(loadedString)
     
     //ASSERT
@@ -324,7 +324,7 @@ test("getGameData() returns correct object type", () => {
     }
 
     const propertiesToTestStringified = JSON.stringify(propertiesToTest)
-    sessionStorageMock.setStringifiedJSON(propertiesToTestStringified)
+    sessionStorageStub.setStringifiedJSON(propertiesToTestStringified)
 
     //ACT
     const actualClassInstance = storageModule.getGameData()
