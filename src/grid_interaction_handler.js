@@ -53,17 +53,18 @@ function changePlayerColor(playerIndex, event) {
     console.log(`Called changePlayerColor()`)
     
     const gameData = getGameData()
+    
     const optionIndex = event.target.options.selectedIndex
     const selectElement = event.path[0]
     const colorChosen = selectElement.options[optionIndex].text.toLowerCase()
 
-    if (colorChosen == "choose a new colour...") {
-        return
+    if (!gameData.isGameInSession || colorChosen == "choose a new colour...") {
+        populateColorSelects(gameData.allTeamColors, gameData.teamColors)
+    } else {
+        gameData.updateTeamColor(playerIndex, colorChosen)
+        gameData.drawGrid()
+        updateStorageObject(gameData)
     }
-    
-    gameData.updateTeamColor(playerIndex, colorChosen)
-    gameData.drawGrid()
-    updateStorageObject(gameData)
 }
 
 

@@ -287,7 +287,8 @@ class LocalGameData {
 
     winActions(winningIndex) {
         this.isGameInSession = false
-        this.drawGrid(this.getCheckerColors(), this.cellImageNames, winningIndex)
+        this.drawGrid()
+        resetWonGame(this.getCheckerColors(), this.cellImageNames, winningIndex)
     }
 
     drawActions() {

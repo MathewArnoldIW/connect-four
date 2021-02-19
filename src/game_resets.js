@@ -7,7 +7,7 @@ async function resetDrawnGame(colorList, cellImageNames) {
 }
 
 
-function resetWonGame(colorList, cellImageNames, winningIndex) {
+async function resetWonGame(colorList, cellImageNames, winningIndex) {
     await drawAnimation(colorList, cellImageNames)
 
     const gameData = getGameData()
@@ -17,7 +17,7 @@ function resetWonGame(colorList, cellImageNames, winningIndex) {
 
 
 function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise(resolve => setTimeout(resolve, ms))
 }
 
 
@@ -48,7 +48,6 @@ async function animateCheckerboard(checkerColors, imageNames, delayFactor) {
 module.exports = {
     resetDrawnGame,
     resetWonGame,
-    getTwoRandomColors,
     drawAnimation,
     animateCheckerboard
 }
