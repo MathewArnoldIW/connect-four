@@ -86,6 +86,12 @@ function bindColorSelectEvents() {
 }
 
 
+function bindButtonRandom() {
+    const button = document.getElementById("ai-button-random")
+    button.addEventListener(`click`, clickButtonRandom)
+}
+
+
 module.exports = {
     initializeGrid,
     createCell,

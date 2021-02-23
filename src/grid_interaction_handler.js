@@ -68,8 +68,14 @@ function changePlayerColor(playerIndex, event) {
 }
 
 
+function clickButtonRandom() {
+    console.log(`Called clickButtonRandom()`)
+}
+
+
 module.exports = {
     clickGridCell,
     attemptToPlacePiece,
-    findIsColumnFull
+    findIsColumnFull,
+    clickButtonRandom
 }

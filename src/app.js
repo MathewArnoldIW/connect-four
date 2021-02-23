@@ -10,6 +10,7 @@ function initializeGame() {
     updateStorageObject(gameDataWithGrid)
 
     bindColorSelectEvents()
+    bindButtonRandom()
 
     console.log(`---INITIALIZATION ENDS---`)
 }

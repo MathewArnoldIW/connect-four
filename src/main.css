@@ -63,19 +63,34 @@ h2 {
     padding-bottom: 0px;
 }
 
-.fading-image {
-    animation: fadeIn ease 1s;
-    -webkit-animation: fadeIn ease 1s;
-    -moz-animation: fadeIn ease 1s;
-    -o-animation: fadeIn ease 1s;
-    -ms-animation: fadeIn ease 1s;
-  }
+#ai-button-random {
+    background-color: #629995;
+    border: none;
+    color: rgb(206, 253, 255);
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+    transition-duration: 0.2s;
+}
 
-  @keyframes fadeIn {
-    0% {
-      opacity:1;
-    }
-    100% {
-      opacity:0;
-    }
-  }
+#ai-button-random:hover {
+    background-color: #4b7572;
+    color: rgb(206, 253, 255);
+}
+
+#ai-button-random:active {
+    background-color: #33504e;
+    color: #33504e;
+}
+
+#center-button {
+    margin: 0;
+    position: absolute;
+    top: 60%;
+    left: 6%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}

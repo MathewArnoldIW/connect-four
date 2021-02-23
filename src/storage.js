@@ -14,7 +14,9 @@ class LocalGameData {
         "purple",
         "red",
         "yellow",
-        "pink"
+        "pink",
+        "madness",
+        "mayhem"
     ]
 
     playerOneName = "playerOne"
