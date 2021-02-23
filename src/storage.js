@@ -15,8 +15,8 @@ class LocalGameData {
         "red",
         "yellow",
         "pink",
-        "madness",
-        "mayhem"
+        // "madness",
+        // "mayhem"
     ]
 
     playerOneName = "playerOne"
@@ -86,6 +86,13 @@ class LocalGameData {
         const horizontalCoordinate = x + yHorizontalValue
 
         return horizontalCoordinate
+    }
+
+    get2DCoordinates(boardIndex) {
+        const x = boardIndex % this._gridWidth
+        const y = Math.floor(boardIndex / -this._gridWidth)
+        
+        return [x, y]
     }
 
     generateEmptyBoardArray() {
@@ -196,8 +203,7 @@ class LocalGameData {
     takeTurn(columnPlayed) {
         console.log(`Called takeTurn()`)
 
-        const columnValues = this.getLineOfValues(columnPlayed, 0, 0, 1)
-        const firstEmptyIndex = columnValues.findIndex(value => value == null)
+        const firstEmptyIndex = this.getFirstEmptyColumnIndex(columnPlayed)
         const firstEmptyAsBoardIndex = this.getBoardIndex(columnPlayed, firstEmptyIndex)
 
         this.boardState[firstEmptyAsBoardIndex] = this.getCurrentTeam()
@@ -209,6 +215,11 @@ class LocalGameData {
         } else {
             this.gameContinueActions()
         }
+    }
+
+    getFirstEmptyColumnIndex(column) {
+        const columnValues = this.getLineOfValues(column, 0, 0, 1)
+        return columnValues.findIndex(value => value == null)
     }
 
     drawGrid() {

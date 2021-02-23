@@ -70,6 +70,14 @@ function changePlayerColor(playerIndex, event) {
 
 function clickButtonRandom() {
     console.log(`Called clickButtonRandom()`)
+
+    const gameData = getGameData()
+
+    if (!gameData.isGameInSession) {
+        return
+    }
+
+    automatedTurnRandom(gameData)
 }
 
 
