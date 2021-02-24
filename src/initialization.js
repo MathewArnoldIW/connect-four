@@ -86,9 +86,12 @@ function bindColorSelectEvents() {
 }
 
 
-function bindButtonRandom() {
-    const button = document.getElementById("ai-button-random")
-    button.addEventListener(`click`, clickButtonRandom)
+function bindButtons() {
+    const buttonRandom = document.getElementById("ai-button-random")
+    buttonRandom.addEventListener(`click`, clickButtonRandom)
+
+    const buttonReasoned = document.getElementById("ai-button-reasoned")
+    buttonReasoned.addEventListener(`click`, clickButtonReasoned)
 }
 
 

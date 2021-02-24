@@ -90,8 +90,8 @@ class LocalGameData {
 
     get2DCoordinates(boardIndex) {
         const x = boardIndex % this._gridWidth
-        const y = Math.floor(boardIndex / -this._gridWidth)
-        
+        const y = Math.floor(boardIndex / this._gridWidth)
+
         return [x, y]
     }
 
@@ -277,7 +277,6 @@ class LocalGameData {
             currentYCoord += vector[1]
 
             const currentValue = this.getCellValue(currentXCoord, currentYCoord)
-            console.log(`value being checked: ${currentValue}`)
 
             if (currentValue == valueOfRoot) {
                 lineLength++

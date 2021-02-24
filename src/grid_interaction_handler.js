@@ -81,9 +81,22 @@ function clickButtonRandom() {
 }
 
 
+function clickButtonReasoned() {
+    console.log(`Called clickButtonReasoned()`)
+
+    const gameData = getGameData()
+
+    if (!gameData.isGameInSession) {
+        return
+    }
+
+    automatedTurnReasoned(gameData)
+}
+
 module.exports = {
     clickGridCell,
     attemptToPlacePiece,
     findIsColumnFull,
-    clickButtonRandom
+    clickButtonRandom,
+    clickButtonReasoned
 }
