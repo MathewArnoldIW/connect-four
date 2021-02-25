@@ -11,6 +11,12 @@ function automatedTurnRandom(gameData) {
 
 
 function automatedTurnReasoned(realGameData) {
+    if (realGameData.currentTurn == 0) {
+        realGameData.takeTurn(Math.floor(realGameData._gridWidth * 0.5))
+        updateStorageObject(realGameData)
+        return
+    }
+    
     const playablePositions = getPlayablePositions(realGameData)
     const availableWinColumn = checkForAvailableWin(realGameData, playablePositions)
 
@@ -21,8 +27,10 @@ function automatedTurnReasoned(realGameData) {
     }
 
     const bestPlayablePositions = findPositionsThatResultInLoss(realGameData, playablePositions)
+    const positionToPlay = chooseRandomPosition(bestPlayablePositions)
 
-    automatedTurnRandom(realGameData)
+    realGameData.takeTurn(positionToPlay[0])
+    updateStorageObject(realGameData)
 }
 
 
@@ -41,9 +49,13 @@ function getPlayablePositions(gameData) {
 }
 
 
-function chooseRandomPosition(boardIndexes) {
-    const randomIndex = Math.floor(Math.random() * boardIndexes.length)
-    return boardIndexes[randomIndex]
+function chooseRandomPosition(positions) {
+    const randomIndex = Math.floor(Math.random() * positions.length)
+
+    console.log(`length of position list to randomly select from: ${positions.length}`)
+    console.log(`randomIndex: ${randomIndex}`)
+    console.log(`position at randomIndex: ${positions[randomIndex]}`)
+    return positions[randomIndex]
 }
 
 
@@ -54,12 +66,24 @@ function checkForAvailableWin(realGameData, playablePositions) {
         let cloneGameData = new LocalGameData()
         cloneGameData.boardState = [...realGameData.boardState]
         cloneGameData.teams = [...realGameData.teams]
-        const isCurrentPlayerWin = checkWinAtPosition(cloneGameData, positionAsBoardIndex)
-        
-        cloneGameData.currentTurn++
-        const isOpponentWin = checkWinAtPosition(cloneGameData, positionAsBoardIndex)
+        cloneGameData.currentTurn = realGameData.currentTurn
+        const isWin = checkWinAtPosition(cloneGameData, positionAsBoardIndex)
 
-        if (isCurrentPlayerWin || isOpponentWin) {
+        if (isWin) {
+            return position[0]
+        } 
+    }
+
+    for (const position of playablePositions) {
+        const positionAsBoardIndex = realGameData.getBoardIndex(...position)
+        
+        let cloneGameData = new LocalGameData()
+        cloneGameData.boardState = [...realGameData.boardState]
+        cloneGameData.teams = [...realGameData.teams]
+        cloneGameData.currentTurn = realGameData.currentTurn + 1
+        const isWin = checkWinAtPosition(cloneGameData, positionAsBoardIndex)
+
+        if (isWin) {
             return position[0]
         } 
     }
@@ -125,5 +149,21 @@ function checkIfPositionIsAtTopOfBoard(realGameData, position) {
 
 
 function assessLossPositions(playablePositions, lossPositionsForCurrentPlayer, lossPositionsForOpponent) {
-    
+    const positionsNotResultingInLoss = playablePositions.filter(pos => !lossPositionsForCurrentPlayer.includes(pos))
+    const positionsNotResultingInExposingBlock = positionsNotResultingInLoss.filter(pos => !lossPositionsForOpponent.includes(pos))
+    const posCount = playablePositions.length
+
+    if (lossPositionsForCurrentPlayer.length == posCount) {
+        return playablePositions
+    }
+
+    if (lossPositionsForOpponent.length == posCount) {
+        return positionsNotResultingInLoss
+    }
+
+    console.log(`all playable positions: ${playablePositions}`)
+    console.log(`positions that don't result in a loss: ${positionsNotResultingInLoss}`)
+    console.log(`positions that don't result in exposing a win: ${positionsNotResultingInExposingBlock}`)
+
+    return positionsNotResultingInExposingBlock
 }

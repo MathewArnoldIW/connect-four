@@ -123,13 +123,13 @@ class LocalGameData {
     }
 
     pushNewCellElement(cellName, cellImageName) {
-        console.log(`Called pushNewCellElement()`)
+        //console.log(`Called pushNewCellElement()`)
         this.cellNames.push(cellName)
         this.cellImageNames.push(cellImageName)
     }
 
     getCellValue(x, y) {
-        console.log(`Called getCellValue()`)
+        //console.log(`Called getCellValue()`)
 
         const boardIndex = this.getBoardIndex(x, y)
 

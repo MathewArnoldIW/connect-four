@@ -34,7 +34,7 @@ function createCell(row, image, j, i) {
     cell.className = `cell-parent`
     cell.appendChild(image)
 
-    console.log(`Appended the cell "${cellName}" to cellNames`)
+    //console.log(`Appended the cell "${cellName}" to cellNames`)
     return cell
 }
 
@@ -46,7 +46,7 @@ function createCellImage(j, i) {
     image.className = `cell-image` //deal with these magic strings
     image.src = `../img/tokens/cell_null.png`
 
-    console.log(`Appended the image "${cellImageName}" to cellImageNames`)
+    //console.log(`Appended the image "${cellImageName}" to cellImageNames`)
     return image
 }
 
@@ -55,7 +55,7 @@ function createGridParent(grid) {
     let gridParent = document.getElementById(`connect-four-grid`);
     gridParent.innerHTML = ``
     gridParent.appendChild(grid)
-    console.log(`Generated grid added as child to the 'connect-four-grid' element`)
+    //console.log(`Generated grid added as child to the 'connect-four-grid' element`)
 }
 
 
@@ -72,7 +72,7 @@ function bindGridInteractionEvents(gameData) {
         gridPosition.addEventListener(`mouseover`, mouseOverGridCell.bind(null, cellName))
         gridPosition.addEventListener(`mouseout`, mouseOutGridCell.bind(null, cellName))
     
-        console.log(`Added event listeners to the cell at (${x}, ${y})`)
+        //console.log(`Added event listeners to the cell at (${x}, ${y})`)
     }
 }
 
