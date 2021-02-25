@@ -6,7 +6,10 @@
   "directories": {
     "test": "test"
   },
-  "dependencies": {},
+  "dependencies": {
+    "express": "^4.17.1",
+    "fetch": "^1.1.0"
+  },
   "devDependencies": {
     "jest": "^26.2.3"
   },
