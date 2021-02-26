@@ -53,7 +53,43 @@ function populateColorSelects(allColors, blacklistedColors) {
     addTitleOptions(selects)
     addColorOptions(selects, allColors, blacklistedColors)
 }
+
+
+function getWinProbability() {
+    fetch('http://localhost:8080/probability/')
+        .then(response => {
+            response.json()
+                .then(data => {
+                    console.log(data)
+                    callAlertWithProbability(data)
+                })
+        }, error => {
+            console.log("there was an error: " + error)
+        })
+}
+
+
+function callAlertWithProbability(data) {
+    const tactics = [
+        "an Infinigambit",
+        "the Rapid Red Revenge",
+        "a Gatsby's Gambit",
+        "the Yellow Brick Code",
+        "a Hobbit's Assault",
+        "the Eternal Knight",
+        "the Humble Gentleman's Backdoor",
+        "the Underdog's Bark",
+        "the Cooper Bidirectional Attack",
+        "the Woodhead Manoeuvre",
+        "the Matthews Strategum",
+        "the Pickering Defence",
+        "the Accenture Phalanx"
+    ]
+    const randomTacticIndex = Math.floor(Math.random() * tactics.length)
     
+    console.log(`PROBABILITY IS ${data.probability}`)
+    alert(`Your probability of winning is currently ${data.probability}%. I suggest performing ${tactics[randomTacticIndex]}.`)
+}
 
 
 module.exports = {

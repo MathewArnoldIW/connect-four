@@ -92,6 +92,9 @@ function bindButtons() {
 
     const buttonReasoned = document.getElementById("ai-button-reasoned")
     buttonReasoned.addEventListener(`click`, clickButtonReasoned)
+
+    const buttonProbability = document.getElementById("probability-button")
+    buttonProbability.addEventListener(`click`, getWinProbability)
 }
 
 
