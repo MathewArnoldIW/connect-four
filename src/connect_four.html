@@ -2,16 +2,35 @@
 <html>
     <head>
         <title>Connect More</title>
+        <link href="main.css" rel="stylesheet" type="text/css">
+        <script type="text/javascript" src="game_resets.js"></script>
         <script type="text/javascript" src="app.js"></script>
         <script type="text/javascript" src="utils.js"></script>
         <script type="text/javascript" src="storage.js"></script>
+        <script type="text/javascript" src="automated_turns.js"></script>
         <script type="text/javascript" src="initialization.js"></script>
-        <script type="text/javascript" src="grid_click_handler.js"></script>
-        <script type="text/javascript" src="game_logic.js"></script>
+        <script type="text/javascript" src="grid_interaction_handler.js"></script>
     </head>
     <body>
         <p><h1>CONNECT MORE!</h1></p>
+
+        <table id="color-select-title-table">
+            <tr>
+                <th><h2>Player One Colour</h2></th>
+                <th><h2>Player Two Colour</h2></th>
+            </tr>
+        </table>
+        
+        <p id="color-selects">
+            <select class="color-select" id="player-one-color-select" name="Player One Colour"></select>
+            <select class="color-select" id="player-two-color-select" name="Player One Colour"></select>
+        </p>
+
         <div id="connect-four-grid"></div>
+
+        <div id="center-button-random"><button id="ai-button-random" type="button">Take Random Turn</button></div>
+        <div id="center-button-reasoned"><button id="ai-button-reasoned" type="button">Take Reasoned Turn</button></div>
+        <div id="center-button-probability"><button id="probability-button" type="button">Calculate Win Probability</button></div>
         <script>initializeGame()</script>
     </body>
 </html>
