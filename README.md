@@ -32,6 +32,6 @@ If we were happy to always deal with 1D indexes (which I'll just call **indexes*
 
 Here's a board with **coords**. Again, this is just a visualization and doesn't exist in the code. We can see how each **coord** relates to an **index** by comparing the two grids above. [8] becomes (0,2) for example. Here's how we can do that conversion programmatically.
 
-# Coords --> Indexes
-
-(1,2) becomes []
+### Coords --> Indexes
+Let's take (2,1) as an example, which should become [6]. How do we get there? In an (x, y) **coord**, the x represents movement to the right (+1 on our board) and y is movement up (+4 on our board, or to generalize, +boardWidth). Given this, the conversion is pretty straightforwards:
+*index = (y * boardWidth) + x*   --our example-->   *index = (1 * 4) + 2* --> *index = 6* 
