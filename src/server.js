@@ -1,5 +1,4 @@
 const express = require('express')
-
 const appExpress = express()
 
 appExpress.use(function(request, response, next) {
@@ -17,7 +16,7 @@ appExpress.get('/hello', (req, res) => {
 })
 
 appExpress.get('/probability', (req, res) => {
-    res.send({probability: Math.floor(Math.random() * 100)})
+    res.send({probability: Math.floor(Math.random() * 100)}) // <-- highly intricate probability calculation code
 })
 
-appExpress.listen(8080)
+appExpress.listen(3006)

@@ -15,8 +15,8 @@ class LocalGameData {
         "red",
         "yellow",
         "pink",
-        // "madness",
-        // "mayhem"
+        "madness",
+        "mayhem"
     ]
 
     playerOneName = "playerOne"
@@ -319,7 +319,7 @@ class LocalGameData {
     const nullTokenFile = this.getTokenFileName("null")
 
     return [evenCheckerTokenFile, oddCheckerTokenFile, nullTokenFile, nullTokenFile]
-}
+    }
 }
 
 
@@ -327,7 +327,7 @@ function updateStorageObject(localGameData) {
     console.log(`Called updateStorageObject()`)
 
     const stringifiedData = JSON.stringify(localGameData)
-    sessionStorage.setItem("gamedata", stringifiedData) //deal with this magic string?
+    sessionStorage.setItem("gamedata", stringifiedData)
 
     console.log(`state of isGameInSession at point of update: ${localGameData.isGameInSession}`)
 }
@@ -336,7 +336,7 @@ function updateStorageObject(localGameData) {
 function getGameData() {
     console.log(`Called getGameData()`)
 
-    const stringifiedData = sessionStorage.getItem("gamedata") //deal with this magic string?
+    const stringifiedData = sessionStorage.getItem("gamedata")
     const parsedData = JSON.parse(stringifiedData)
     const gameDataObject = Object.assign(new LocalGameData(), parsedData)
 
