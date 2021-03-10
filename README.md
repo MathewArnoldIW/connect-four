@@ -34,6 +34,6 @@ Here's a board with **coords**. Again, this is just a visualization and doesn't 
 
 ### Coords --> Indexes
 Let's take (2,1) as an example, which should become [6]. How do we get there? In an (x, y) **coord**, the x represents movement to the right (+1 on our board) and y is movement up (+4 on our board, or to generalize, +boardWidth). Given this, the conversion is pretty straightforwards. Below is how we arrive at 6 for our specific example:
-*index = (y * boardWidth) + x*
-*index = (1 * 4) + 2*
-*index = 6* 
+\n*index = (y * boardWidth) + x*
+\n*index = (1 * 4) + 2*
+\n*index = 6* 
